@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { addressInput } from './actions';
+
 import './App.css';
 
 function App() {
+  const address = useSelector(state => state.address)
+  const dispatch = useDispatch()
+
+  const [addInput, setAddInput] = useState('')
+
+  const handleChange = (e) => {
+    setAddInput(e.target.value)
+  }
+
+  const handleClick = () => {
+    dispatch(addressInput(addInput))
+    setAddInput('')
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello {address}</h1>
+      <input 
+        className='somethg'
+        placeholder='Nhap dia chi'
+        onChange={handleChange}
+        value={addInput}
+       />
+      <button onClick={handleClick}>Submit</button>
     </div>
   );
 }
